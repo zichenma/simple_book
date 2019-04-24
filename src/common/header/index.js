@@ -53,7 +53,9 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        focused : state.header.focused
+        // focused : state.header.focused
+         // immutable 下如果需要调用某个属性，需要：
+        focused : state.header.get('focused')
     }
 }
 
