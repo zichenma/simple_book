@@ -54,8 +54,15 @@ const Header = (props) => {
 const mapStateToProps = (state) => {
     return {
         // focused : state.header.focused
-         // immutable 下如果需要调用某个属性，需要：
-        focused : state.header.get('focused')
+        // immutable 下如果需要调用某个属性，需要：
+        // 但是 .header 为属性获取，.get为immutable api 获取， 为了
+        // 统一，引入 redux-immutable
+        // focused : state.header.get('focused')
+        // after using redux-immutable:
+        // using get api
+        // focused : state.get('header').get('focused')
+        // using get in:
+       focused: state.getIn(['header', 'focused'])
     }
 }
 
