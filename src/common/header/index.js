@@ -8,12 +8,40 @@ import {
     Nav, 
     NavItem,
     NavSearch,
+    SearchInfo,
+    SearchInfoTitle,
+    SearchInfoSwitch,
+    SearchInfoList,
+    SearchInfoItem,
     Addition,
     Button,
     SearchWrapper
 } from './style';
 
-
+const getListArea = (show) => {
+    if (show) {
+        return (
+            <SearchInfo>
+            <SearchInfoTitle>
+                Hot Search
+                <SearchInfoSwitch>
+                    View More
+                </SearchInfoSwitch>
+            </SearchInfoTitle>
+            <SearchInfoList>
+                <SearchInfoItem>Education</SearchInfoItem>
+                <SearchInfoItem>Education</SearchInfoItem>
+                <SearchInfoItem>Education</SearchInfoItem>
+                <SearchInfoItem>Education</SearchInfoItem>
+                <SearchInfoItem>Education</SearchInfoItem>
+                <SearchInfoItem>Education</SearchInfoItem>
+            </SearchInfoList>
+        </SearchInfo>
+        )
+    } else {
+        return null;
+    }
+}
 const Header = (props) => {
     return (
         <HeaderWrapper>
@@ -39,6 +67,7 @@ const Header = (props) => {
             <i className={ props.focused ? 'focused iconfont' : 'iconfont' }>
                 &#xe637;
             </i>
+            {getListArea(props.focused)}
             </SearchWrapper>
             <Addition>
                 <Button className="writting">
