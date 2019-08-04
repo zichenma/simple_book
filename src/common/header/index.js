@@ -21,8 +21,8 @@ import {
 
 class Header extends Component {
     getListArea = () => {
-        if (this.props.focused) {
-            const { list } = this.props;
+        const {focused, list} = this.props;
+        if (focused) {
             return (
                 <SearchInfo>
                 <SearchInfoTitle>
@@ -32,9 +32,11 @@ class Header extends Component {
                     </SearchInfoSwitch>
                 </SearchInfoTitle>
                 <SearchInfoList>
-                    {list.map((item, index) => {
-                        return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                    })}
+                    {
+                        list.map((item, index) => {
+                            return <SearchInfoItem key={item}>{item}</SearchInfoItem>
+                        })
+                    }
                 </SearchInfoList>
             </SearchInfo>
             )
@@ -43,6 +45,7 @@ class Header extends Component {
         }
     }
     render() {
+        const { focused, handleInputBlur, handleInputFocus } = this.props;
         return (
             <HeaderWrapper>
             <Logo />
@@ -55,16 +58,16 @@ class Header extends Component {
                 </NavItem>
                 <SearchWrapper>
                 <CSSTransition
-                    in={ this.props.focused }
+                    in={ focused }
                     timeout={ 200 } 
                     classNames="slide" 
                 >
-                <NavSearch className={ this.props.focused ? 'focused' : '' }
-                    onFocus={this.props.handleInputFocus}
-                    onBlur={this.props.handleInputBlur}>
+                <NavSearch className={ focused ? 'focused' : '' }
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}>
                 </NavSearch>
                 </CSSTransition>
-                <i className={ this.props.focused ? 'focused iconfont' : 'iconfont' }>
+                <i className={ focused ? 'focused iconfont' : 'iconfont' }>
                     &#xe637;
                 </i>
                 {this.getListArea()}
