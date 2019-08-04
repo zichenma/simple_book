@@ -21,22 +21,31 @@ import {
 
 class Header extends Component {
     getListArea = () => {
-        const {focused, list} = this.props;
-        if (focused) {
+        const {focused, mouseIn, list, page, totalPage, handleMouseEnter, handleMouseLeave, handleChangePage} = this.props;
+        const newList = list.toJS();
+        const pageList = [];
+        if (newList.length) {
+            for (let i = (page - 1) * 10; i < page * 10; i++) {
+                pageList.push(
+                    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+                )
+            }
+        }
+        if (focused || mouseIn) {
             return (
-                <SearchInfo>
-                <SearchInfoTitle>
+                <SearchInfo 
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                >
+                {/* 用这样的方式，可以把page 和 totalPage传到方法里，最后传到reducer里面 */}
+                <SearchInfoTitle onClick={() => handleChangePage(page, totalPage)}>
                     Most Popular
                     <SearchInfoSwitch>
                         View More
                     </SearchInfoSwitch>
                 </SearchInfoTitle>
                 <SearchInfoList>
-                    {
-                        list.map((item, index) => {
-                            return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                        })
-                    }
+                    {pageList}
                 </SearchInfoList>
             </SearchInfo>
             )
@@ -97,7 +106,10 @@ const mapStateToProps = (state) => {
         // focused : state.get('header').get('focused')
         // using get in:
        focused: state.getIn(['header', 'focused']),
-       list: state.getIn(['header', 'list'])
+       list: state.getIn(['header', 'list']),
+       page: state.getIn(['header', 'page']),
+       totalPage: state.getIn(['header', 'totalPage']),
+       mouseIn: state.getIn(['header', 'mouseIn']),
     }
 }
 
@@ -110,6 +122,19 @@ const mapDispatchToProps = (dispatch) => {
       handleInputBlur() {
         const action = actionCreators.searchBlur();
         dispatch(action);
+      },
+      handleMouseEnter() {
+          dispatch(actionCreators.mouseEnter());
+      },
+      handleMouseLeave() {
+          dispatch(actionCreators.mouseLeave());
+      },
+      handleChangePage(page, totalPage) {
+          if (page < totalPage) {
+            dispatch(actionCreators.changePage(page + 1));
+          } else {
+            dispatch(actionCreators.changePage(1));
+          }
       }
     }
 }
