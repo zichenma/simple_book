@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { actionCreators } from './store';
 import Topic from './components/Topic';
 import List from './components/List';
 import Recommend from './components/Recommend';
@@ -6,6 +8,9 @@ import Writer from './components/Writer';
 import { HomeWrapper, HomeLeft, HomeRight } from './style';
 
 class Home extends Component {
+    componentDidMount() {
+        this.props.handleChangeHome();
+    }
     render() {
         return (
             <HomeWrapper>
@@ -23,4 +28,20 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        topicList : state.getIn(['home', 'topicList']),
+        articleList : state.getIn(['home', 'articleList']),
+        recommendList : state.getIn(['home', 'recommendList'])
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        handleChangeHome () {
+            dispatch(actionCreators.getHomeData())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
