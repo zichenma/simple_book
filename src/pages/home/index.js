@@ -5,13 +5,24 @@ import Topic from './components/Topic';
 import List from './components/List';
 import Recommend from './components/Recommend';
 import Writer from './components/Writer';
-import { HomeWrapper, HomeLeft, HomeRight } from './style';
+import { HomeWrapper, HomeLeft, HomeRight, BackTop } from './style';
 
 class Home extends Component {
     componentDidMount() {
         this.props.handleChangeHome();
+        this.bindEvents();
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.props.changeScrollToShow);
+    }
+    handleScrollTop() {
+        window.scrollTo(0, 0);
+    }
+    bindEvents() {
+        window.addEventListener('scroll', this.props.changeScrollToShow);
     }
     render() {
+        const { showScroll } = this.props;
         return (
             <HomeWrapper>
                 <HomeLeft>
@@ -23,6 +34,7 @@ class Home extends Component {
                     <Recommend />
                     <Writer />
                 </HomeRight>
+                {showScroll && <BackTop onClick={this.handleScrollTop}>Top</BackTop>}
             </HomeWrapper>
         )
     }
@@ -32,7 +44,8 @@ const mapStateToProps = state => {
     return {
         topicList : state.getIn(['home', 'topicList']),
         articleList : state.getIn(['home', 'articleList']),
-        recommendList : state.getIn(['home', 'recommendList'])
+        recommendList : state.getIn(['home', 'recommendList']),
+        showScroll: state.getIn(['home', 'showScroll'])
     }
 }
 
@@ -40,6 +53,13 @@ const mapDispatchToProps = dispatch => {
     return {
         handleChangeHome () {
             dispatch(actionCreators.getHomeData())
+        },
+        changeScrollToShow() {
+            if (document.documentElement.scrollTop > 100) {
+                dispatch(actionCreators.toggleTopShow(true))
+            } else {
+                dispatch(actionCreators.toggleTopShow(false))
+            }
         }
     }
 }
