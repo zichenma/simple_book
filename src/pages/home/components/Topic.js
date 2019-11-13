@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // Topic 组件比较小，因此可以定义一个wrapper把样式放于上层组件style.js中
 import { TopicWrapper, TopicItem  } from '../style';
 
-class Topic extends Component {
+class Topic extends PureComponent {
     render() {
         const { list } = this.props;
         return (

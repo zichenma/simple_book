@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import Topic from './components/Topic';
@@ -7,7 +7,7 @@ import Recommend from './components/Recommend';
 import Writer from './components/Writer';
 import { HomeWrapper, HomeLeft, HomeRight, BackTop } from './style';
 
-class Home extends Component {
+class Home extends PureComponent {
     componentDidMount() {
         this.props.handleChangeHome();
         this.bindEvents();

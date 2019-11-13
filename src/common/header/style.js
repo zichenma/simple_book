@@ -8,9 +8,7 @@ export const HeaderWrapper = styled.div`
     font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const Logo = styled.a.attrs(
-    {href: '/'}
-)`
+export const Logo = styled.div`
     position: absolute;
     top:0;
     left:0;
