@@ -12,7 +12,10 @@ class List extends PureComponent {
             {
                 list.map((item, index)=> {
                 return (
-                <Link key={index} to='/detail'>
+                // param router: 
+                // <Link key={index} to={'/detail?id=' + item.get('id')}>
+                // dynamic router: 
+                <Link key={index} to={'/detail/' + item.get('id')}>
                     <ListItem>
                         <ListInfo>
                             <h3 className='title'>{item.get('title')}</h3>

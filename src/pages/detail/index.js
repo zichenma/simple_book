@@ -16,7 +16,10 @@ class Detail extends Component {
         )
     }
     componentDidMount() {
-        this.props.getDetail();
+        // using param router will get a string in location which need to parse by ourselves
+        // console.log(this.props.location.search); => ?id=1
+        const { id } = this.props.match.params;
+        this.props.getDetail(id);
     }
 }
 
@@ -26,8 +29,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-    getDetail() {
-        dispatch(actionCreators.getDetail());
+    getDetail(id) {
+        dispatch(actionCreators.getDetail(id));
     }
 })
 

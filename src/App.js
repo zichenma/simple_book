@@ -14,7 +14,10 @@ class App extends Component {
           <div>
             <Header />
             <Route path='/' exact component={Home}></Route>
-            <Route path='/detail' exact component={Detail}></Route>
+            {/* dynamic router:  */}
+            <Route path='/detail/:id' exact component={Detail}></Route>
+            {/* param router: */}
+            {/* <Route path='/detail' exact component={Detail}></Route>  */}
           </div>
         </BrowserRouter>
       </Provider>
