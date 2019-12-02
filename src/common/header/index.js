@@ -91,9 +91,11 @@ class Header extends PureComponent {
                 {this.getListArea()}
                 </SearchWrapper>
                 <Addition>
-                    <Button className="writting">
-                    <i className="iconfont">&#xe615;</i>Compose
-                    </Button>
+                    <Link to='/write'>
+                        <Button className="writting">
+                        <i className="iconfont">&#xe615;</i>Compose
+                        </Button>
+                    </Link>
                     <Button className="reg">Register</Button>
                 </Addition>
             </Nav>
